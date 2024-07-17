@@ -1,5 +1,6 @@
 import http from "node:http";
 import { json } from "./middlewares/json.js";
+import { Database } from "./database.js";
 
 // Rotas são meios de entrada e formas do fronted ou quem ta consumindo a api executar diferentes operações dentro do backend
 // Exemplo rota para :
@@ -38,6 +39,8 @@ import { json } from "./middlewares/json.js";
 // 400 - 499 = Erros originados por conta da requisição (Front-end)
 // 500 - 599 = Erros inesperados originados no server (Back-end)
 
+const database = new Database();
+
 const users = [];
 
 const server = http.createServer(async (req, res) => {
@@ -46,14 +49,14 @@ const server = http.createServer(async (req, res) => {
   await json(req, res);
 
   if (method === "GET" && url === "/users") {
-    return res
-      .end(JSON.stringify(users));
+    const users = database.select("users");
+    return res.end(JSON.stringify(users));
   }
 
   if (method === "POST" && url === "/users") {
     const { name, email } = req.body;
 
-    users.push({
+    database.insert("users", {
       id: 1,
       name,
       email,
