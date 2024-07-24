@@ -34,7 +34,10 @@ pessoa no contexto individual que conheçe bem os fluxos desenvolvimento, ao inv
 CALMS - framework que visa medir a capacidade de transformação da empresa (medir se realmente esta utilizando o devops)
 
 C ulture - caso tiver um problema e buscar uma pessoa culpada ao inves de rever o processo(equipe) nao é devops (exp: deploy de alguem deu errado é problema de processo do time ), aprender com os erros.
-A utomation - 
-L ean 
+
+A utomation - atumatizar tudo que de para deixar automatico - (Entrega continua: deve ser automatizada para reduzir o tempo gasto em tarefas repetitivas e garantir agilidade na implantação) e (GitOps/IAC: visa estabeleceruma unica fonte de verdade para recursos em nuvem, centralizando o gerenciamento no GIt e garantindo maior segurança, economia e manutenabilidade)
+
+L ean - Focar no MVP, focar em tarefas que trazem valor, visa entregas rápidas e iteráveis, focando em alto valor e baixa complexidade. (realizar o minimo da ideia macro, oque for por fora do core vc vai iterando conforme a necessidade), realizar o mvp para experimentar o basico da ideia (errar rapido para corrigir rapido)
+
 M easurement
 S haring
