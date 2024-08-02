@@ -43,4 +43,11 @@
 	- ele por padrao aponta para o docker hub
 	- "FROM" fala para qual imagem do docker hub ele vai apontar (as imagens do dockerhub apontam para outras imagens...)
 	- Caso tiver uma BaseImage local tem que configurar para o dockerfile apontar para ela
-	- "WORKDIR" é o diretorio que eu quero trabalhar dentro da imagem base (por padrao roda no base path do SO, nao é uma boa pratica) 
+	- "WORKDIR" é o diretorio que eu quero trabalhar dentro da imagem base (por padrao roda no base path do SO, nao é uma boa pratica) - /usr/src/app, o usr existe na distro linux src/build é criado em tempo de build
+	- "COPY" para rodar o npm i eu preciso do packe.json, o "COPY" copia um arquivo da interface para o container - COPY package.json ./ , cria o arquivo em "./" no caso "app"
+	- "RUN" executa um comando dentro do container
+	- "COPY . ." copia tudo da interface para o diretorio inicial do workdir dentro do container
+	- "EXPOSE" expoem uma porta do container
+	- "CMD" executavel da aplicação (o CMD define parametros padroes que podem ser substituidos na CLI)
+	
+	- "docker build -t api-rocket ."  ou "docker build -t api-rocket -f nome_do_arquivo_dockerfile" - realiza o build da imagem docker
