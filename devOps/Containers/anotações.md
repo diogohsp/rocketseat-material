@@ -38,3 +38,9 @@
 
 	- promover conteineres agnosticos (os containers nao devem estar vinculados a um cliente especifico)
 	- Portabilidade
+	
+# Dockerfile
+	- ele por padrao aponta para o docker hub
+	- "FROM" fala para qual imagem do docker hub ele vai apontar (as imagens do dockerhub apontam para outras imagens...)
+	- Caso tiver uma BaseImage local tem que configurar para o dockerfile apontar para ela
+	- "WORKDIR" é o diretorio que eu quero trabalhar dentro da imagem base (por padrao roda no base path do SO, nao é uma boa pratica) 
