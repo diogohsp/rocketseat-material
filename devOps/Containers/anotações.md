@@ -51,3 +51,7 @@
 	- "CMD" executavel da aplicação (o CMD define parametros padroes que podem ser substituidos na CLI)
 	
 	- "docker build -t api-rocket ."  ou "docker build -t api-rocket -f nome_do_arquivo_dockerfile" - realiza o build da imagem docker
+	
+# Comandos
+	- "--rm" fala que ao final do ciclo de vida o container deve ser deletado
+	- "-p" é de PORT que mapeia uma porta da minha interface para apontar para uma porta do container docker
