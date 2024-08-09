@@ -53,7 +53,21 @@
 	- "docker build -t api-rocket ."  ou "docker build -t api-rocket -f nome_do_arquivo_dockerfile" - realiza o build da imagem docker
 	
 # Comandos
+	- "curl http://localhost:3000" me retorna o "hello world" do docker
+	- "docker build -t 'api-rocket' . " buildar a imagem do docker
+	- "docker run -rm  -p 3000:3000 -d api-rocket"
 	- "--rm" fala que ao final do ciclo de vida o container deve ser deletado
 	- "-p" é de PORT que mapeia uma porta da minha interface para apontar para uma porta do container docker
 	- "-d"
 	- "docker ps" mostra todos os containers que estao em execução
+	
+# REDES E VOLUMES
+
+	- Rede é uma abstração que visa facilitar toda a parte comunicativa do docker (comunicação entre containers ou externa)
+	- "docker network"
+	- todo container tem uma rede, caso nao especifar a rede no "run" por padrao ela sera a rede "bridge" que fornece uma interface que fará o bridge com o DOCKER ZERO do host, da para fazer comunicação via tcp por default
+	- quando for trabalhar com container localmente principalmente, é uma boa pratica ter suas redes de acordo com seus projetos
+	- rede "none" isola o container
+	- rede "host" tem como objetivo entregar todas as interfaces existentes no DOCKERHOST para o container
+	- "docker network create [nome da rede]"
+	- "docker network create --driver bridge [nome da rede]" especifica a rede bridge
