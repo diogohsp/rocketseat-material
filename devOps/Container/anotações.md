@@ -61,7 +61,7 @@
 	- "-d"
 	- "docker ps" mostra todos os containers que estao em execução
 	
-# REDES E VOLUMES
+# REDES
 
 	- Rede é uma abstração que visa facilitar toda a parte comunicativa do docker (comunicação entre containers ou externa)
 	- "docker network"
@@ -71,3 +71,10 @@
 	- rede "host" tem como objetivo entregar todas as interfaces existentes no DOCKERHOST para o container
 	- "docker network create [nome da rede]"
 	- "docker network create --driver bridge [nome da rede]" especifica a rede bridge
+	- "docker network connect [nome ou id] [id do container ou nome]"
+	- "docker network inspect [nome da rede ou id]" inspeciona a rede, mostra se a rede esta conectada a algum container
+	- "docker container inspect [nome da rede ou id]" inspeciona o container, mostra as redes que o container esta conectado
+	- "docker run --network=primeira-network -p 3000:4000 -d api ." inicia o container ja conectado a rede especificada, quando eu crio um container ja associando ele a uma rede ele fica somente associado a essa rede em especifica
+	
+# VOLUMES
+	-"docker exec -it bash", entra no diretorio padrao do docker - caso criar arquivos por aqui eles sumirao quando o container for DESTRUIDO (diferente do container ser parado)
