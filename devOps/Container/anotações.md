@@ -77,4 +77,10 @@
 	- "docker run --network=primeira-network -p 3000:4000 -d api ." inicia o container ja conectado a rede especificada, quando eu crio um container ja associando ele a uma rede ele fica somente associado a essa rede em especifica
 	
 # VOLUMES
+	- Os volumes são armazenamentos de dados persistentes implementados pelo mecanismo de contêiner.
+	- volume nao tem id, se usa o proprio nome 
 	-"docker exec -it bash", entra no diretorio padrao do docker - caso criar arquivos por aqui eles sumirao quando o container for DESTRUIDO (diferente do container ser parado)
+	-"docker volume create primeiro-volume"
+	-"docker volume inspect primeiro-volume"
+	-"[docker run -v primeiro-volume:/usr/src/app --network primeira-network -p 30001:3000 -d api-rocket ]" -d faz nao travar o terminal, e o -v ou --volume indica o volume a ser utilizado
+	- ao entrar abrir uma sessao iterativa dentro do container em execução (acessar o shell do container em execução -> docker exec -it...) apontando para o volume os dados criados sao persistidos ao finalizar o container
