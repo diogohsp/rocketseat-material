@@ -84,3 +84,8 @@
 	-"docker volume inspect primeiro-volume"
 	-"[docker run -v primeiro-volume:/usr/src/app --network primeira-network -p 30001:3000 -d api-rocket ]" -d faz nao travar o terminal, e o -v ou --volume indica o volume a ser utilizado
 	- ao entrar abrir uma sessao iterativa dentro do container em execução (acessar o shell do container em execução -> docker exec -it...) apontando para o volume os dados criados sao persistidos ao finalizar o container
+	
+# ALPINE E STRETCH
+	- A responsabilidade do container é executar o binario da aplicação, qualquer coisa além não deveria ser responsabilidade do container(EXP: comandos linux como ls, cd, nao é responsabilidade do container).
+	- Alpine é uma distro linux enxuta sem interface grafica e ideal para executar os container por ser muita orientada a execução
+	- Stretch é um distro baseada em uma release do Debian (outros tipos parecidos, Busters, Jessy...)
