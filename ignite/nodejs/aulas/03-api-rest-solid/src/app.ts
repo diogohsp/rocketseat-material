@@ -1,3 +1,13 @@
-import fastify from "fastify";
+import { PrismaClient } from '@prisma/client'
+import fastify from 'fastify'
 
-export const app = fastify();
+export const app = fastify()
+
+const prisma = new PrismaClient()
+
+prisma.user.create({
+  data: {
+    name: 'Diogo Prado',
+    email: 'diogo@gmail.com',
+  },
+})

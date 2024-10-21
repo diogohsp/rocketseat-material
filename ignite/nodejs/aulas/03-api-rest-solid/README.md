@@ -29,3 +29,11 @@ GymPass style app.
 - [ ] The applications data need to persist in a PostgreSQL database
 - [ ] The entire data list needs to be paginated with 20 items per page
 - [ ] User must be identified with a JWT(Json Web Token)
+
+## Some commands for DEV
+
+npm i prisma -D (prisma develop dependency)
+npm i @prisma/client (prisma prod dependency - used for get acces to DB)
+
+npx prisma init - create te prisma schema folder
+npx prisma generate - generate type of prisma schema (node_modules/prisma/index.d.ts - create type and mehtods about prisma schema)
