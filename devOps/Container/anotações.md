@@ -87,5 +87,6 @@
 	
 # ALPINE E STRETCH
 	- A responsabilidade do container é executar o binario da aplicação, qualquer coisa além não deveria ser responsabilidade do container(EXP: comandos linux como ls, cd, nao é responsabilidade do container).
-	- Alpine é uma distro linux enxuta sem interface grafica e ideal para executar os container por ser muita orientada a execução
+	- Alpine é uma distro linux(SO) enxuta sem interface grafica e ideal para executar os container por ser muita orientada a execução
 	- Stretch é um distro baseada em uma release do Debian (outros tipos parecidos, Busters, Jessy...)
+	- Bullseye são versoes nao estaveis que utilizam Debian
