@@ -30,6 +30,22 @@ GymPass style app.
 - [ ] The entire data list needs to be paginated with 20 items per page
 - [ ] User must be identified with a JWT(Json Web Token)
 
+## Notes
+
+#### "Controller" 
+    is a class that handles HTTP requests and responses in web applications
+#### "Services" 
+    is a basic functionality of the app, for example: creating a user (the user can be created via http or other events...)
+#### "Repository Pattern"
+     A design pattern that abstracts data access, separating the data layer from business logic for better maintainability and testability.
+
+### SOLID
+    S
+    O
+    L
+    I
+    D - Dependency Inversion Principle
+
 ## Some commands for DEV
 
 npm i prisma -D (prisma develop dependency)
