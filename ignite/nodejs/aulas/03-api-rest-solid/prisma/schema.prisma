@@ -20,9 +20,40 @@ datasource db {
 // for private resources auto increment takes up less space and is more performant
 
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+
+  checkIns CheckIn[] //user can do multiple check-ins //in the name fields of the relationships use camelcase because we can use easier in js
 
   @@map("users")
+}
+
+model CheckIn {
+  id           String    @id @default(uuid())
+  created_at   DateTime  @default(now())
+  validated_at DateTime?
+
+  user    User   @relation(fields: [user_id], references: [id]) //creates a foreign key that references the id column in the user with the user_id field of this checkin
+  user_id String
+
+  gym   Gym    @relation(fields: [gym_id], references: [id])
+  gym_id String
+
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+  
+  checkIns     CheckIn[]
+
+  @@map("gyms")
 }

@@ -37,3 +37,8 @@ npm i @prisma/client (prisma prod dependency - used for get acces to DB)
 
 npx prisma init - create te prisma schema folder
 npx prisma generate - generate type of prisma schema (node_modules/prisma/index.d.ts - create type and mehtods about prisma schema)
+
+docker compose up -d (start containers)
+docker compose down (delete the containers and datas)
+docker compose stop (stop containers)
+
