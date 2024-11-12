@@ -1,4 +1,4 @@
-import { usersRepository } from '@/repositories/users-repository'
+import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-already-exists'
 import { User } from '@prisma/client'
@@ -20,7 +20,7 @@ export class RegisterUseCase {
   //   this.usersRepository = usersRepository
   // }
 
-  constructor(private usersRepository: usersRepository) {}
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     name,
@@ -34,8 +34,6 @@ export class RegisterUseCase {
     if (useWithSameEmail) {
       throw new UserAlreadyExistsError()
     }
-
-    // const prismaUsersRepository = new PrismaUsersRepository()
 
     const user = await this.usersRepository.create({
       name,
