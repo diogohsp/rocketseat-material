@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-use-before-define */
-import { expect, describe, it } from 'vitest'
-import { RegisterUseCase } from './register'
-import { compare } from 'bcryptjs'
+import { expect, describe, it, beforeEach } from 'vitest'
+import { RegisterUseCase } from '@/services/register/register'
+import bcrypt from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
-import { register } from 'module'
-import { UserAlreadyExistsError } from './errors/user-already-exists'
+import { UserAlreadyExistsError } from '../errors/user-already-exists'
 
 // Unit test
-describe('Register Use Case', () => {
-  it('should be able to register', async () => {
-    const inMemoryUsersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryUsersRepository)
 
-    const { user } = await registerUseCase.execute({
+let usersRepository: InMemoryUsersRepository
+let sut: RegisterUseCase
+describe('Register Use Case', () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
+  })
+  it('should be able to register', async () => {
+    const { user } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
@@ -22,16 +25,13 @@ describe('Register Use Case', () => {
     expect(user.id).toEqual(expect.any(String))
   })
   it('should hash user password upon registration', async () => {
-    const inMemoryUsersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryUsersRepository)
-
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
     })
 
-    const isPasswordCorrectlyHashed = await compare(
+    const isPasswordCorrectlyHashed = await bcrypt.compare(
       '123456',
       user.password_hash,
     )
@@ -40,19 +40,16 @@ describe('Register Use Case', () => {
   })
 
   it('should not be able to register with same email twice', async () => {
-    const inMemoryUsersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryUsersRepository)
-
     const email = 'teste@email.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'teste',
       email,
       password: '123456',
     })
 
-    expect(() =>
-      registerUseCase.execute({
+    await expect(() =>
+      sut.execute({
         name: 'teste2',
         email,
         password: '123456',
