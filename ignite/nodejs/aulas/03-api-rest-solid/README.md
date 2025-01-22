@@ -7,19 +7,19 @@ GymPass style app.
 - [x] It must be possible to register
 - [x] It must be possible to autenticate
 - [x] It must be possible to get the profile of a logged user
-- [ ] It must be possible to get the number of check-ins made by the logged user
-- [ ] It must be possible the user search for nearby gyms
-- [ ] It must be possible the user search for gyms by name
+- [x] It must be possible to get the number of check-ins made by the logged user
+- [x] It must be possible the user search for nearby gyms
+- [x] It must be possible the user search for gyms by name
 - [x] It must be possible the user to check-in at the gym
-- [ ] It must be possible to validate the user check-in
-- [ ] It must be possible to register a gym
+- [x] It must be possible to validate the user check-in
+- [x] It must be possible to register a gym
 
 ## BRs (Business rules) - The business rule always is associated a functional requirement because there are path that each function requirement can take.
 
 - [x] The user cannot register with a duplicate email
 - [x] The user cannot do two check-ins in the same day
-- [ ] The user cannot do check-in if he is not near the gym
-- [ ] Check-in can only be validated up to 20 minutes after creation
+- [x] The user cannot do check-in if he is not near the gym
+- [x] Check-in can only be validated up to 20 minutes after creation
 - [ ] Check-in can only be validated for administrators
 - [ ] Gym only be register for the administrators
 
@@ -32,14 +32,20 @@ GymPass style app.
 
 ## Notes
 
-#### "Controller" 
+#### "Controller"
+
     is a class that handles HTTP requests and responses in web applications
-#### "Services" 
+
+#### "Services"
+
     is a basic functionality of the app, for example: creating a user (the user can be created via http or other events...)
+
 #### "Repository Pattern"
+
      A design pattern that abstracts data access, separating the data layer from business logic for better maintainability and testability.
 
 ### SOLID
+
     S
     O
     L
@@ -57,4 +63,3 @@ npx prisma generate - generate type of prisma schema (node_modules/prisma/index.
 docker compose up -d (start containers)
 docker compose down (delete the containers and datas)
 docker compose stop (stop containers)
-
