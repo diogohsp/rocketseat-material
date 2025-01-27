@@ -1,42 +1,60 @@
-import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
+import { beforeAll, afterAll, afterEach } from 'vitest'
 import { randomUUID } from 'node:crypto'
-import { beforeAll, afterAll } from 'vitest'
-import { execSync } from 'node:child_process'
 
-const prisma = new PrismaClient()
+const testSchema = `test_${randomUUID().replace(/-/g, '')}`
 
-const generateDatabaseURL = (schema: string) => {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not defined')
+const testPrisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: `${process.env.DATABASE_URL}?schema=${testSchema}`,
+    },
+  },
+})
+
+console.log(
+  '[TEST ENV] Database URL:',
+  `${process.env.DATABASE_URL}?schema=${testSchema}`,
+)
+
+beforeAll(async () => {
+  await testPrisma.$connect()
+
+  // Verifica se o schema já existe
+  const schemaExists = await testPrisma.$queryRawUnsafe<{ exists: boolean }[]>(
+    `SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.schemata
+      WHERE schema_name = $1
+    )`,
+    testSchema,
+  )
+
+  if (schemaExists[0].exists) {
+    console.log(`Schema "${testSchema}" já existe.`)
+  } else {
+    // Cria o schema dinâmico
+    await testPrisma.$executeRawUnsafe(
+      `CREATE SCHEMA IF NOT EXISTS "${testSchema}"`,
+    )
+    console.log(`Schema "${testSchema}" criado com sucesso.`)
   }
 
-  const url = new URL(process.env.DATABASE_URL)
+  // Define o search_path para o schema de teste
+  await testPrisma.$executeRawUnsafe(`SET search_path TO "${testSchema}"`)
+})
 
-  url.searchParams.set('schema', schema)
-
-  return url.toString()
-}
-
-let schema: string
-
-beforeAll(() => {
-  schema = randomUUID()
-
-  console.log('schema criado: ', schema)
-
-  const dataBaseURL = generateDatabaseURL(schema)
-
-  process.env.DATABASE_URL = dataBaseURL
-
-  execSync('npx prisma migrate deploy')
+afterEach(async () => {
+  await testPrisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "${testSchema}"."users", "${testSchema}"."gyms", "${testSchema}"."check_ins" CASCADE`,
+  )
+  console.log(`Tabelas do schema "${testSchema}" truncadas com sucesso.`)
 })
 
 afterAll(async () => {
-  console.log('schema apagado: ', schema)
-
-  await prisma.$queryRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE `)
-  await prisma.$disconnect()
+  await testPrisma.$executeRawUnsafe(
+    `DROP SCHEMA IF EXISTS "${testSchema}" CASCADE`,
+  )
+  await testPrisma.$disconnect()
+  console.log(`Schema "${testSchema}" excluído com sucesso.`)
 })
-
-//TODO: BD is using schema "public" instead of the scheam created by "generateDatabaseURL" fn
