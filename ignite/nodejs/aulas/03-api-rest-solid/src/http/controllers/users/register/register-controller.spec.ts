@@ -4,7 +4,6 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 describe('Register (e2e)', () => {
   beforeAll(async () => {
-    console.log('iniciando teste registro')
     await app.ready()
   })
 
@@ -19,9 +18,6 @@ describe('Register (e2e)', () => {
       password: '123456',
     })
 
-    console.log('fim do teste')
-
-    expect(response).toEqual({ a: 'a' })
     expect(response.statusCode).toEqual(201)
   })
 })
