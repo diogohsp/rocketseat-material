@@ -19,10 +19,16 @@ datasource db {
 // for public resources you should use uuid instead of autoincrement because with autoincrement it is very easy to discover users
 // for private resources auto increment takes up less space and is more performant
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
 model User {
   id            String   @id @default(uuid())
   name          String
   email         String   @unique
+  role          Role     @default(MEMBER)
   password_hash String
   created_at    DateTime @default(now())
 
@@ -39,21 +45,21 @@ model CheckIn {
   user    User   @relation(fields: [user_id], references: [id]) //creates a foreign key that references the id column in the user with the user_id field of this checkin
   user_id String
 
-  gym   Gym    @relation(fields: [gym_id], references: [id])
+  gym    Gym    @relation(fields: [gym_id], references: [id])
   gym_id String
 
   @@map("check_ins")
 }
 
 model Gym {
-  id          String    @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   description String?
   phone       String?
   latitude    Decimal
   longitude   Decimal
-  
-  checkIns     CheckIn[]
+
+  checkIns CheckIn[]
 
   @@map("gyms")
 }
